@@ -1,14 +1,28 @@
-# Local/Push notification plugin for Godot engine
+# Local/Push notification plugin for the Pandemonium engine
 
-This is a module for [Godot Game Engine](http://godotengine.org/) which add local and remote notification feature for iOS and Android. 
+This is a module for [Pandemonium Game Engine](https://github.com/Relintai/pandemonium_engine) which add local and remote notification feature for iOS and Android.
+
+Needs work for iOS.
+
+Needs work for Android 31+.
 
 ## Installation
 
-1. At first you need [NativeLib-CLI](https://github.com/DrMoriarty/nativelib-cli) or [NativeLib Addon](https://github.com/DrMoriarty/nativelib).
+~~1. At first you need [NativeLib-CLI](https://github.com/DrMoriarty/nativelib-cli) or [NativeLib Addon](https://github.com/DrMoriarty/nativelib).~~
 
-2. Make `nativelib -i local-notification` in your project directory if you are using CLI. Find `LOCAL-NOTIFICATION` in plugins list and press "Install" button if you are using GUI Addon.
+~~2. Make `nativelib -i local-notification` in your project directory if you are using CLI. Find `LOCAL-NOTIFICATION` in plugins list and press "Install" button if you are using GUI Addon.~~
 
-3. Enable **Custom Build** for using in Android.
+~~3. Enable **Custom Build** for using in Android.~~
+
+1. Download release or compile it.
+
+### Android
+
+1. Set up Android Custom Build.
+
+2. Copy the contents of the android folder from the release zip to your project.
+
+3. Enable **Custom Build** and enable the Local Notification plugin in the export menu. for using in Android.
 
 ## Usage
 
@@ -39,6 +53,10 @@ Cancel all pending notifications (implemented for iOS only).
 ### init()
 
 Request permission for notifications (iOS only).
+
+### requestPermissions()
+
+Request permission for notifications (Android only).
 
 ### is_inited() -> bool
 
