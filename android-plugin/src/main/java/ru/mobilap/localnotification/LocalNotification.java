@@ -187,7 +187,6 @@ public class LocalNotification extends PandemoniumPlugin {
             sender = PendingIntent.getBroadcast(getActivity(), tag, i, PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
-        PendingIntent sender = PendingIntent.getBroadcast(getActivity(), tag, i, PendingIntent.FLAG_UPDATE_CURRENT);
         return sender;
     }
 
