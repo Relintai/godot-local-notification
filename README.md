@@ -6,6 +6,8 @@ Needs work for iOS.
 
 Needs work for Android 31+.
 
+Only works with Pandemonium 4.2.1 and up.
+
 ## Installation
 
 ~~1. At first you need [NativeLib-CLI](https://github.com/DrMoriarty/nativelib-cli) or [NativeLib Addon](https://github.com/DrMoriarty/nativelib).~~
@@ -22,7 +24,7 @@ Needs work for Android 31+.
 
 2. Copy the contents of the android folder from the release zip to your project.
 
-3. Enable **Custom Build** and enable the Local Notification plugin in the export menu. for using in Android.
+3. Enable **Custom Build** and enable the Local Notification plugin in the export menu for using in Android.
 
 ## Usage
 
