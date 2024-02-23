@@ -11,6 +11,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import androidx.core.app.NotificationCompat;
+
+import android.os.Build;
 import android.util.Log;
 import android.net.Uri;
 import android.media.RingtoneManager;
@@ -48,7 +50,14 @@ public class LocalNotificationReceiver extends BroadcastReceiver {
         
         Intent intent2 = new Intent(context, appClass);
         intent2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent pendingIntent = null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getActivity(context, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getActivity(context, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
 
         int iconID = context.getResources().getIdentifier("icon", "mipmap", context.getPackageName());
         int notificationIconID = context.getResources().getIdentifier("notification_icon", "mipmap", context.getPackageName());

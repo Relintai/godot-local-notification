@@ -3,11 +3,13 @@ package ru.mobilap.localnotification;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.AlarmManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
 import android.net.Uri;
 import android.view.View;
+import android.content.Context;
 import java.util.Map;
 import java.util.List;
 import java.util.Arrays;
@@ -47,6 +49,7 @@ public class LocalNotification extends PandemoniumPlugin {
     public List<String> getPluginMethods() {
         return Arrays.asList(
                 "init",
+                "requestPermissions",
                 "showLocalNotification",
                 "showRepeatingNotification",
                 "cancelLocalNotification",
@@ -86,8 +89,30 @@ public class LocalNotification extends PandemoniumPlugin {
         return true;
     }
 
+    public void requestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(getActivity().ALARM_SERVICE);
+
+            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
+
+                Intent intent = new Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                intent.setData(Uri.fromParts("package", getActivity().getPackageName(), null));
+                getActivity().startActivity(intent);
+            }
+        }
+    }
+
     public void showLocalNotification(String message, String title, int interval, int tag) {
         if(interval <= 0) return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(getActivity().ALARM_SERVICE);
+
+            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
+                return;
+            }
+        }
+
         Log.d(TAG, "showLocalNotification: "+message+", "+Integer.toString(interval)+", "+Integer.toString(tag));
         PendingIntent sender = getPendingIntent(message, title, tag);
 
@@ -105,6 +130,15 @@ public class LocalNotification extends PandemoniumPlugin {
     
     public void showRepeatingNotification(String message, String title, int interval, int tag, int repeat_duration) {
         if(interval <= 0) return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(getActivity().ALARM_SERVICE);
+
+            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
+                return;
+            }
+        }
+
         Log.d(TAG, "showRepeatingNotification: "+message+", "+Integer.toString(interval)+", "+Integer.toString(tag)+" Repeat after: "+Integer.toString(repeat_duration));
         PendingIntent sender = getPendingIntent(message, title, tag);
 
@@ -144,6 +178,15 @@ public class LocalNotification extends PandemoniumPlugin {
         i.putExtra("notification_id", tag);
         i.putExtra("message", message);
         i.putExtra("title", title);
+
+        PendingIntent sender = null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            sender = PendingIntent.getBroadcast(getActivity(), tag, i, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            sender = PendingIntent.getBroadcast(getActivity(), tag, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+
         PendingIntent sender = PendingIntent.getBroadcast(getActivity(), tag, i, PendingIntent.FLAG_UPDATE_CURRENT);
         return sender;
     }
