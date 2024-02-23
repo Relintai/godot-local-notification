@@ -14,7 +14,8 @@ import androidx.core.app.NotificationCompat;
 import android.util.Log;
 import android.net.Uri;
 import android.media.RingtoneManager;
-import org.godotengine.godot.Godot;
+
+import org.pandemoniumengine.pandemonium.Pandemonium;
 
 public class LocalNotificationReceiver extends BroadcastReceiver {
     private static final String TAG = "Notification";
@@ -39,7 +40,7 @@ public class LocalNotificationReceiver extends BroadcastReceiver {
 
         Class appClass = null;
         try {
-            appClass = Class.forName("com.godot.game.GodotApp");
+            appClass = Class.forName("com.pandemonium.game.PandemoniumApp");
         } catch (ClassNotFoundException e) {
             // app not found, do nothing
             return;

@@ -17,13 +17,13 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import org.godotengine.godot.Godot;
-import org.godotengine.godot.GodotLib;
-import org.godotengine.godot.Dictionary;
-import org.godotengine.godot.plugin.GodotPlugin;
-import org.godotengine.godot.plugin.SignalInfo;
+import org.pandemoniumengine.pandemonium.Pandemonium;
+import org.pandemoniumengine.pandemonium.PandemoniumLib;
+import org.pandemoniumengine.pandemonium.Dictionary;
+import org.pandemoniumengine.pandemonium.plugin.PandemoniumPlugin;
+import org.pandemoniumengine.pandemonium.plugin.SignalInfo;
 
-public class LocalNotification extends GodotPlugin {
+public class LocalNotification extends PandemoniumPlugin {
 
     private final String TAG = LocalNotification.class.getName();
     private Dictionary notificationData = new Dictionary();
@@ -31,9 +31,9 @@ public class LocalNotification extends GodotPlugin {
     private String uri = null;
     private Boolean intentWasChecked = false;
 
-    public LocalNotification(Godot godot) 
+    public LocalNotification(Pandemonium pandemonium) 
     {
-        super(godot);
+        super(pandemonium);
         intentWasChecked = false;
         //checkIntent();
     }
@@ -159,14 +159,14 @@ public class LocalNotification extends GodotPlugin {
 
     private void checkIntent() {
         Log.w(TAG, "I'm going to check application intent");
-        Intent intent = Godot.getCurrentIntent();
+        Intent intent = Pandemonium.getCurrentIntent();
         if(intent == null) {
             Log.d(TAG, "No intent in app activity");
             return;
         }
         Log.w(TAG, "The intent isn't null, so check it closely.");
         if(intent.getExtras() != null) {
-            Bundle extras = Godot.getCurrentIntent().getExtras();
+            Bundle extras = Pandemonium.getCurrentIntent().getExtras();
             Log.d(TAG, "Extras:" + extras.toString());
             notificationData = new Dictionary();
             for (String key : extras.keySet()) {
