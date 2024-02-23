@@ -47,7 +47,8 @@ dependencies {
      necessary since the Godot editor will also provide a version of the godot
      library when building the final binary.
      */
-    compileOnly fileTree(dir: 'libs', include: ['godot-lib*.aar'])
+    // For pandemonium "android_pandemonium-lib*.aar" can be found in the export templates
+    compileOnly fileTree(dir: 'libs', include: ['android_pandemonium-lib*.aar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
 }
 
