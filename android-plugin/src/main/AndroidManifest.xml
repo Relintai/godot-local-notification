@@ -3,15 +3,15 @@
   <application>
     <!--
     Plugin metadata:
-    - In the `android:name` attribute, the `org.godotengine.plugin.v1` prefix
-    is required so Godot can recognize the project as a valid Godot
+    - In the `android:name` attribute, the `org.pandemoniumengine.pandemonium.plugin.v1` prefix
+    is required so Pandemonium can recognize the project as a valid Pandemonium
     Android plugin. The plugin name following the prefix should match the value
     of the plugin name returned by the plugin initializer.
     - The `android:value` attribute should be the classpath to the plugin
     initializer.
     -->
     <meta-data
-        android:name="org.godotengine.plugin.v1.LocalNotification"
+        android:name="org.pandemoniumengine.pandemonium.plugin.v1.LocalNotification"
         android:value="ru.mobilap.localnotification.LocalNotification" />
 
     <receiver android:name="ru.mobilap.localnotification.LocalNotificationReceiver" android:process=":remote" />
