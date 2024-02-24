@@ -24,6 +24,7 @@ import org.pandemoniumengine.pandemonium.PandemoniumLib;
 import org.pandemoniumengine.pandemonium.Dictionary;
 import org.pandemoniumengine.pandemonium.plugin.PandemoniumPlugin;
 import org.pandemoniumengine.pandemonium.plugin.SignalInfo;
+import org.pandemoniumengine.pandemonium.plugin.UsedByPandemonium;
 
 public class LocalNotification extends PandemoniumPlugin {
 
@@ -78,17 +79,21 @@ public class LocalNotification extends PandemoniumPlugin {
 
     // Public methods
 
+    @UsedByPandemonium
     public void init() {
     }
 
+    @UsedByPandemonium
     public boolean isInited() {
         return true;
     }
 
+    @UsedByPandemonium
     public boolean isEnabled() {
         return true;
     }
 
+    @UsedByPandemonium
     public void requestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(getActivity().ALARM_SERVICE);
@@ -102,6 +107,7 @@ public class LocalNotification extends PandemoniumPlugin {
         }
     }
 
+    @UsedByPandemonium
     public void showLocalNotification(String message, String title, int interval, int tag) {
         if(interval <= 0) return;
 
@@ -127,7 +133,8 @@ public class LocalNotification extends PandemoniumPlugin {
             am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
         }
     }
-    
+
+    @UsedByPandemonium
     public void showRepeatingNotification(String message, String title, int interval, int tag, int repeat_duration) {
         if(interval <= 0) return;
 
@@ -154,19 +161,23 @@ public class LocalNotification extends PandemoniumPlugin {
         }
     }
 
+    @UsedByPandemonium
     public void cancelLocalNotification(int tag) {
         AlarmManager am = (AlarmManager)getActivity().getSystemService(getActivity().ALARM_SERVICE);
         PendingIntent sender = getPendingIntent("", "", tag);
         am.cancel(sender);
     }
 
+    @UsedByPandemonium
     public void cancelAllNotifications() {
         Log.w(TAG, "cancelAllNotifications not implemented");
     }
 
+    @UsedByPandemonium
     public void register_remote_notification() {
     }
 
+    @UsedByPandemonium
     public String get_device_token() {
         return "";
     }
@@ -236,16 +247,19 @@ public class LocalNotification extends PandemoniumPlugin {
         intentWasChecked = true;
     }
 
+    @UsedByPandemonium
     public Dictionary get_notification_data() {
         if(!intentWasChecked) checkIntent();
         return notificationData;
     }
 
+    @UsedByPandemonium
     public String get_deeplink_action() {
         if(!intentWasChecked) checkIntent();
         return action;
     }
 
+    @UsedByPandemonium
     public String get_deeplink_uri() {
         if(!intentWasChecked) checkIntent();
         return uri;
